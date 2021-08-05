@@ -8,7 +8,7 @@ from tkinter.filedialog import askopenfilename
 def robozinho():
     robo_download_email(dir_trabalho.get(),
                          url.get(),
-                         1,final_paginas.get()
+                         int(final_paginas.get()),7
                         )
 
     time.sleep(2)
@@ -44,7 +44,9 @@ final_paginas.grid(row=2, column=1)
 dir_trabalho.grid(row=3, column=1)
 
 #Variáveis já preenchidas
-dir_trabalho.insert(10,'C:\\Users\\81018590\\Desktop\\Teste_Trabalho')
+dir_trabalho.insert(10,'C:\\Users\\81018590\\Desktop\\TESTE')
+final_paginas.insert(10,1101)
+url.insert(10,"http://www1.tjrj.jus.br/gedvisaweb/frmFramenavegador.aspx?id=3894C5040C54115B")
 #http://www1.tjrj.jus.br/gedvisaweb/frmFramenavegador.aspx?id=33FAC503470D4846
 
 #Botões
@@ -55,13 +57,6 @@ tk.Button(master,
                                     sticky=tk.W,
                                     pady=4)
 
-#
-# tk.Button(master,
-#           text='Ask Open File',
-#           command=askopenfilename).grid(row=6,
-#                                     column=0,
-#                                     sticky=tk.W,
-#                                     pady=4)
 tk.Button(master,
           text='Rodar',
           command=robozinho
