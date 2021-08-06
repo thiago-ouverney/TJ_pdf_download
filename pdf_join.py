@@ -1,7 +1,7 @@
 from PyPDF2 import PdfFileMerger
 from pdfrw import PdfReader, PdfWriter
 import os
-work_dir = 'C:\\Users\\81018590\\Desktop\\TESTE'
+work_dir = 'C:\\Users\\81018590\\Desktop\\TESTE\\FILE'
 os.chdir(work_dir)
 
 
@@ -26,7 +26,6 @@ def consolidando_emails(diretorio,cod_processo):
     pdfs.sort(key=lambda x: os.path.getmtime(x))
 
     m = 0
-    #merger = PdfFileMerger(strict=False)
     writer = PdfWriter()
     for pdf in pdfs:
         try:
@@ -35,32 +34,4 @@ def consolidando_emails(diretorio,cod_processo):
         except Exception as err:
             print(f"ERRO - {pdf}")
     writer.write(f"Processo_{cod_processo}.pdf")
-
-
-
-        #try:
-        #    print(pdf)
-        #    merger.append(pdf)
-        #except Exception as err:
-        #    print(f"Erro em: {pdf}")
-    #merger.write(f"Processo_{cod_processo}.pdf")
-    #merger.close()
-
-
-
-def consolidando(dir):
-    import fitz
-    os.chdir(dir)
-    pdfs = [file for file in os.listdir() if file.upper().endswith('.PDF')]
-    pdfs.sort(key=lambda x: os.path.getmtime(x))
-
-
-
-    result = fitz.open()
-
-    for pdf in pdfs[:10]:
-        with fitz.open(pdf) as mfile:
-            result.insertPDF(mfile)
-
-    result.save("result.pdf")
 

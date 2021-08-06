@@ -44,9 +44,9 @@ final_paginas.grid(row=2, column=1)
 dir_trabalho.grid(row=3, column=1)
 
 #Variáveis já preenchidas
-dir_trabalho.insert(10,'C:\\Users\\81018590\\Desktop\\TESTE')
-final_paginas.insert(10,1101)
-url.insert(10,"http://www1.tjrj.jus.br/gedvisaweb/frmFramenavegador.aspx?id=3894C5040C54115B")
+dir_trabalho.insert(10,'C:\\Users\\81018590\\Desktop\\TESTE\\FILE')
+final_paginas.insert(10,10314)
+url.insert(10,"http://www1.tjrj.jus.br/gedvisaweb/frmframenavegador.aspx?id=6077C5040D1B122D")
 #http://www1.tjrj.jus.br/gedvisaweb/frmFramenavegador.aspx?id=33FAC503470D4846
 
 #Botões
@@ -68,4 +68,5 @@ tk.Button(master,
 
 
 
-master.mainloop()
+#master.mainloop()
+robozinho()

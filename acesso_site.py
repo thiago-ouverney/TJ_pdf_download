@@ -1,8 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
@@ -13,6 +11,8 @@ import pandas as pd, numpy as np
 import time, os, logging , shutil
 import logging
 import sys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # profile["plugin.scan.plid.all"] = false
 # profile["plugin.scan.Acrobat"] = "99.0"
@@ -32,6 +32,7 @@ def preferencia_download_firefox(dir_trabalho):
     profile.set_preference("browser.download.manager.alertOnEXEOpen", False)
     profile.set_preference("browser.download.manager.showAlertOnComplete", False)
     profile.set_preference("browser.download.manager.closeWhenDone", True)
+    profile.set_preference("dom.max_script_run_time", 120)
     profile.set_preference("pdfjs.disabled", True)
     profile.set_preference("plugin.scan.Acrobat","99.0")
     profile.set_preference("plugin.scan.plid.all", False)
@@ -65,18 +66,28 @@ def robo_download_email(dir_trabalho,link,tamanho,regra):
                                      dir_trabalho = dir_trabalho
                                      )
 
+    wait = WebDriverWait(driver, 60)
 
     #Entrando site já logado
     # link = 'http://www1.tjrj.jus.br/gedvisaweb/frmFramenavegador.aspx?id=33FAC503470D4846'
     driver.get(link)
-    time.sleep(10)
+
 
 #http://www1.tjrj.jus.br/gedvisaweb/frmFramenavegador.aspx?id=B3CCC50401104312
     #Expandindo Todos arquivos
     css_botao_expandir = '#btnExpandir > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)'
-    for n in range(4):
-        clicando_botao_expandir = driver.find_element_by_css_selector(css_botao_expandir).click()
-        time.sleep(5)
+
+
+    time.sleep(20)
+    for n,time_wait in zip(range(5),[200,150,100,50,20]):
+        try:
+            wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, css_botao_expandir)))
+            clicando_botao_expandir = driver.find_element_by_css_selector(css_botao_expandir)
+            clicando_botao_expandir.click()
+            time.sleep(10)
+        except Exception as err:
+            print(err)
+
 
     lista_indicadores = [str(indicador).zfill(7) for indicador in range(1, tamanho+1)]
 
